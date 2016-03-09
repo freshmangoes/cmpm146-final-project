@@ -1,0 +1,26 @@
+.handle {
+	position:absolute;
+	background:red;
+	border-radius:60px;
+	width:30px;
+	height:30px;
+	top:0px;
+	left:0px;
+	box-shadow:2px 2px 10px rgba(0, 0, 0, .4);
+}
+#handles {
+	position:absolute;
+	left:50%;
+	top:50%;
+}
+
+
+
+#canvas {
+	width:30px;
+	height:30px;position:absolute;
+	width: 300px;
+	height: 200px;
+	box-shadow:2px 2px 10px rgba(0, 0, 0, .9);
+	
+}
