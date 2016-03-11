@@ -1,7 +1,7 @@
 var app = {};
 
 // A holder for lots of app-related functionality
-define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customEvo/evoSim"], function(_processing, common, TreeEvo, BoidEvo, CustomEvo) {
+define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customEvo/evoSim", "./bees/beeEvo"], function(_processing, common, TreeEvo, BoidEvo, CustomEvo, BeeEvo) {
     'use strict';
 
     // A little time object to keep track of the current time,
@@ -51,7 +51,8 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
 
                 // TODO switch between BoidEvo and CustomEvo here
                 //app.evolution = new BoidEvo();
-                  app.evolution = new TreeEvo();
+                app.evolution = new TreeEvo();
+				//app.evolution = new BeeEvo();
                 //    app.evolution = new CustomEvo();
 
                 g.size(w, h);
