@@ -2,7 +2,7 @@
  * @author Gavin, Alex, and Blake
  */
 
-define(["common", "graph/graph"], function(common, Graph) {
+define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, treeEvo) {
     var BODY_SIZE = 0;
     var WING_SIZE = 1;
     var STINGER_SIZE = 2;
@@ -266,6 +266,8 @@ define(["common", "graph/graph"], function(common, Graph) {
         },
         update : function(time) {
 			this.moveBee();
+			//console.log(this.root.getColor());
+			console.log(this.dna[1]);
             this.root.update();
         },
 
@@ -279,7 +281,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 			
 			//DRAW BEES HERE
 			g.pushMatrix();
-			g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
+			//g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
@@ -287,6 +289,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 			//wings
 			g.ellipse(-this.bodyWidth/2-this.wingWidth/2, 0, this.wingWidth, this.radius);
 			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
+			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
 			
 			g.popMatrix();
 			//END DRAW BEES
