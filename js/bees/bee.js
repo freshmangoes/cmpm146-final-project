@@ -101,7 +101,8 @@ define(["common", "graph/graph"], function(common, Graph) {
         draw : function(g) {
             g.noStroke();
             //this.idColor.fill(g);
-            this.drawCircle(g, this.radius);
+            //this.drawCircle(g, this.radius);
+			
 
             if (this.children.length === 0) {
                 g.pushMatrix();
@@ -160,15 +161,15 @@ define(["common", "graph/graph"], function(common, Graph) {
 
     // A root node is a special case of a bee node
     var RootNode = BeeNode.extend({
-        init : function(bee, dna, pos, width, height) {
+        init : function(bee, dna, pos, angle, radius) {
             this.dna = dna;
             this._super();
             this.bee = bee;
 
             this.setTo(pos);
-            this.width = width;
+            this.radius = radius;
 
-            this.height = height;
+            this.angle = angle;
             this.depth = 0;
         }
     });
@@ -179,12 +180,17 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.iterations = 0;
             this.dna = dna;
             this.id = beeCount;
+			//this next chunk deals with appearance
+			this.radius=Math.random()*8;
+			this.bodyWidth=Math.random()*10;
+			this.wingWidth=Math.random()*11;
+			this.rotation=Math.random()*180;
             beeCount++;
 
             Bee.beeCount = beeCount;
 
             // Create a root node
-            this.root = new RootNode(this, dna, rootPos, 20, 20);//Create BeeBody
+            this.root = new RootNode(this, dna, rootPos, -Math.PI / 2,  5 + Math.random() * 4);//Create BeeBody
 
             this.addNode(this.root);
 
@@ -246,25 +252,26 @@ define(["common", "graph/graph"], function(common, Graph) {
         },
 
         draw : function(g) {
-            ///this.leafVolume = 0;
-            ///this.petalVolume = 0;
 
             g.noStroke();
             if (this.isSelected) {
                 //g.fill(.59, 1, 1);
                 this.root.drawCircle(g, 20);
             }
-			///Draws dark circles at bottom of flower
-            /*for (var i = 0; i < 6; i++) {
-                var r = 50 * Math.pow(i / 5, 3) + 15;
-                g.fill(0, 0, 0, .1 + .5 / i);
-                g.ellipse(this.root.x, this.root.y + i * 2 + 5, r, r * .3);
-            }*/
-			for (var i = 0; i < 1; i++){
-				//g.fill(255, 254, 224);
-				g.ellipse(this.root.x-3, this.root.y, 7, 12);
-			}
-
+			
+			//DRAW BEES HERE
+			g.pushMatrix();
+			g.translate(this.root.x,this.root.y);
+			g.rotate(this.rotation);
+			//body
+			g.ellipse(0, 0, this.bodyWidth, this.bodyWidth*2);
+			//wings
+			g.ellipse(-this.bodyWidth/2-this.wingWidth/2, 0, this.wingWidth, this.radius);
+			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
+			
+			g.popMatrix();
+			//END DRAW BEES
+			//
 			for (var i = 0; i < this.edges.length; i++){
 				var e = this.edges[i];
 				var m = e.getLength();
