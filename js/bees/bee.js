@@ -181,6 +181,8 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.dna = dna;
             this.id = beeCount;
 			//this next chunk deals with appearance
+			//NOTE: these values should be part of dna, so we'll need to
+			//add them inside the dna instead of here
 			this.radius=Math.random()*8;
 			this.bodyWidth=Math.random()*10;
 			this.wingWidth=Math.random()*11;
