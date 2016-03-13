@@ -182,6 +182,14 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.iterations = 0;
             this.dna = dna;
             this.id = treeCount;
+			//these are values that the bee should be able to see.
+			//bees will interact with trees differently based on them
+			//NOTE: these values should be part of dna, so we'll need to
+			//add them inside the dna instead of here
+			this.pollenTubeLength;
+			this.numPollen;
+			this.fragility;
+			this.atractiveness;
             treeCount++;
 
             Tree.treeCount = treeCount;
