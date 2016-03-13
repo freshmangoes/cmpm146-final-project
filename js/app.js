@@ -51,8 +51,8 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
 
                 // TODO switch between BoidEvo and CustomEvo here
                 //app.evolution = new BoidEvo();
-                app.evolution = new TreeEvo();
-				//app.evolution = new BeeEvo();
+                app.evolution1 = new TreeEvo();
+				app.evolution2 = new BeeEvo();
                 //    app.evolution = new CustomEvo();
 
                 g.size(w, h);
@@ -73,11 +73,14 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
 
                     // Update time
                     app.time.updateTime();
-                    app.evolution.update(app.time);
+                    app.evolution1.update(app.time);
+					app.evolution2.update(app.time);
+
 
                     g.pushMatrix();
                     g.translate(w / 2, h / 2);
-                    app.evolution.draw(g);
+                    app.evolution1.draw(g);
+					app.evolution2.draw(g);
 
                     g.popMatrix();
                 };
@@ -111,11 +114,12 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 var relY = e.pageY - parentOffset.top - app.dimensions.y / 2;
                 console.log(relX + " " + relY);
 
-                app.evolution.selectAt(new Vector(relX, relY));
+                app.evolution1.selectAt(new Vector(relX, relY));
             });
 
             $("#replant").click(function() {
-                app.evolution.respawnAll();
+                app.evolution1.respawnAll();
+				app.evolution2.respawnAll();
             });
             
             $("#debug").click(function() {

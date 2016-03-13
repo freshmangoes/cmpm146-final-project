@@ -106,6 +106,10 @@ define(["common", "graph/graph"], function(common, Graph) {
                 g.pushMatrix();
                 this.translateTo(g);
                 g.rotate(this.angle);
+				
+				var bodySize = 5 * this.radius;
+				//var wingL = 
+				//var wingH = 
 
                 ///var petalSize = 5 * this.radius;
                 ///var aspect = .1 + .9 * this.dna[PETAL_ASPECT];
@@ -121,6 +125,13 @@ define(["common", "graph/graph"], function(common, Graph) {
                     this.bee.petalVolume += petalH * petalW;
 
                 }*/
+				//Draw some bees
+				/*for (var i = 0; i < 1; i++){
+					this.bee.bodyColor.fill(g, 0, 121, 184);
+					//g.rotate(Math.PI * 2 / 50);
+					//g.ellipse(10, -300, 15, 20);
+					
+				}*/
 
                 g.popMatrix();
 
@@ -177,7 +188,7 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.addNode(this.root);
 
             this.cleanup();
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 3; i++) {
                 this.iterate();
                 this.cleanup();
 
@@ -239,7 +250,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 
             g.noStroke();
             if (this.isSelected) {
-                g.fill(.59, 1, 1);
+                //g.fill(.59, 1, 1);
                 this.root.drawCircle(g, 20);
             }
 			///Draws dark circles at bottom of flower
@@ -248,6 +259,10 @@ define(["common", "graph/graph"], function(common, Graph) {
                 g.fill(0, 0, 0, .1 + .5 / i);
                 g.ellipse(this.root.x, this.root.y + i * 2 + 5, r, r * .3);
             }*/
+			for (var i = 0; i < 1; i++){
+				g.fill(255, 254, 224);
+				g.ellipse(this.root.x-(i*3), this.root.y, 7, 12);
+			}
 
             /*for (var i = 0; i < this.edges.length; i++) {
                 var e = this.edges[i];
