@@ -186,7 +186,9 @@ define(["common", "graph/graph"], function(common, Graph) {
 			this.radius=Math.random()*8;
 			this.bodyWidth=Math.random()*10;
 			this.wingWidth=Math.random()*11;
-			this.rotation=Math.random()*180;
+			this.rotation=Math.random()*180
+			this.destX = Math.floor(Math.random()*400-300);
+			this.destY = Math.floor(Math.random()*600-300);
             beeCount++;
 
             Bee.beeCount = beeCount;
@@ -240,6 +242,20 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.cleanup();
             this.iterations++;
         },
+		
+		moveBee : function(){
+			//check if we're at the destinaiton
+			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
+				console.log("stuck");
+				//assign new destination
+				this.destX = Math.floor(Math.random()*400-300);
+				this.destY = Math.floor(Math.random()*600-300);
+			}
+			//move towards destination
+			this.destX<this.root.x?this.root.x-=2:this.root.x+=2;
+			this.destY<this.root.y?this.root.y-=2:this.root.y+=2;
+			//this.rotation  = 180*Math.atan(this.root.y/this.root.x)/Math.PI;
+		},
 
         select : function() {
             this.isSelected = true;
@@ -249,7 +265,7 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.isSelected = false;
         },
         update : function(time) {
-
+			this.moveBee();
             this.root.update();
         },
 
@@ -263,6 +279,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 			
 			//DRAW BEES HERE
 			g.pushMatrix();
+			g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
@@ -288,54 +305,6 @@ define(["common", "graph/graph"], function(common, Graph) {
 				
 				g.popMatrix();
 			}
-            /*for (var i = 0; i < this.edges.length; i++) {
-                var e = this.edges[i];
-                var angle = e.getAngle();
-                var m = e.getLength();
-                var r0 = e.start.radius;
-                var r1 = e.end.radius;
-                g.pushMatrix();
-
-                e.start.translateTo(g);
-                g.rotate(angle);
-                //  g.rect(0, 0, m, 4);
-
-                e.start.getColor().fill(g, 0, 0);
-                g.beginShape();
-                g.vertex(0, -r0);
-                g.vertex(0, r0);
-                g.vertex(m, r1);
-                g.vertex(m, -r1);
-                g.endShape();
-
-                // draw leaves
-
-                for (var j = 0; j < this.leafCount; j++) {
-                    e.start.getColor().fill(g, .3 * Math.sin(j + e.start.depth), -.3 + .2 * Math.sin(j + e.start.depth));
-
-                    g.translate(m / this.leafCount, 0);
-                    var r = 15 * e.start.radius * (.3 + this.dna[LEAF_ASPECT]);
-                    var r1 = r * (.7 * this.dna[LEAF_SHAPE] + .12);
-                    var theta = Math.sin(j * 3 + e.start.depth);
-                    var dTheta = 1 / (.8 + 2 * this.dna[LEAF_ASPECT]);
-                    var theta0 = theta - dTheta;
-                    var theta1 = theta + dTheta;
-
-                    this.leafVolume += r * r1;
-
-                    g.beginShape();
-                    g.vertex(0, 0);
-                    g.vertex(r1 * Math.cos(theta0), r1 * Math.sin(theta));
-                    g.vertex(r * Math.cos(theta), r * Math.sin(theta));
-                    g.vertex(r1 * Math.cos(theta1), r1 * Math.sin(theta1));
-
-                    g.endShape();
-
-                }
-
-                g.popMatrix();
-
-            }*/
             for (var i = 0; i < this.nodes.length; i++) {
                 this.nodes[i].draw(g);
             }
@@ -343,6 +312,8 @@ define(["common", "graph/graph"], function(common, Graph) {
             ///g.text(this.leafVolume, this.root.x, this.root.y);
             ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },
+		
+		
 
         calculateStats : function() {
             this.stats = {
