@@ -36,7 +36,8 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.angle = this.baseAngle;
 
             // Make a color for this node
-            this.idColor = new common.KColor((3 + this.dna[HUE_START] + .1 * this.dna[HUE_DIFF] * this.depth) % 1, -this.dna[SATURATION] * this.depth * .08 + .7 + .3 * this.dna[SATURATION] * (Math.sin(this.depth)), .3 + .1 * this.depth);
+			this.idColor = new common.KColor("yellow");
+            //this.idColor = new common.KColor((3 + this.dna[HUE_START] + .1 * this.dna[HUE_DIFF] * this.depth) % 1, -this.dna[SATURATION] * this.depth * .08 + .7 + .3 * this.dna[SATURATION] * (Math.sin(this.depth)), .3 + .1 * this.depth);
 
         },
 
@@ -99,7 +100,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 
         draw : function(g) {
             g.noStroke();
-            this.idColor.fill(g);
+            //this.idColor.fill(g);
             this.drawCircle(g, this.radius);
 
             if (this.children.length === 0) {
@@ -260,10 +261,24 @@ define(["common", "graph/graph"], function(common, Graph) {
                 g.ellipse(this.root.x, this.root.y + i * 2 + 5, r, r * .3);
             }*/
 			for (var i = 0; i < 1; i++){
-				g.fill(255, 254, 224);
-				g.ellipse(this.root.x-(i*3), this.root.y, 7, 12);
+				//g.fill(255, 254, 224);
+				g.ellipse(this.root.x-3, this.root.y, 7, 12);
 			}
 
+			for (var i = 0; i < this.edges.length; i++){
+				var e = this.edges[i];
+				var m = e.getLength();
+				g.pushMatrix();
+				
+				g.beginShape();
+				g.vertex();
+				g.vertex();
+				g.vertex();
+				g.vertex();
+				g.endShape();
+				
+				g.popMatrix();
+			}
             /*for (var i = 0; i < this.edges.length; i++) {
                 var e = this.edges[i];
                 var angle = e.getAngle();
@@ -315,7 +330,7 @@ define(["common", "graph/graph"], function(common, Graph) {
             for (var i = 0; i < this.nodes.length; i++) {
                 this.nodes[i].draw(g);
             }
-            g.fill(0);
+            //g.fill(0);
             ///g.text(this.leafVolume, this.root.x, this.root.y);
             ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },

@@ -21,12 +21,12 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
             this.beeLine = 200;
 
             // make grass
-            for (var i = 0; i < 60; i++) {
+            /*for (var i = 0; i < 60; i++) {
                 var r = 40 * (1 + utilities.noise(i * .3, 4));
                 var theta = -Math.PI / 2 + .35 * ( utilities.noise(i * .09, 4));
                 this.grass[i] = Vector.polar(r, theta);
 
-            }
+            }*/
             this._super();
         },
 
