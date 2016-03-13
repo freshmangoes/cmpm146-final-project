@@ -3,20 +3,20 @@
  */
 
 define(["common", "graph/graph"], function(common, Graph) {
-    var SPREAD = 0;
+    var SPREAD = 0; //WING_SIZE
     var ID_ANGLE = 1;
     var ANGLE_SKEW = 2;
     var ANIM_ANGLE = 3;
     var SHRINKAGE = 4;
-    var BUSHINESS = 5;
+    var BUSHINESS = 5;//STINGER_SIZE
     var HUE_START = 6;
     var HUE_DIFF = 7;
     var FLOWER_HUE = 8;
-    var FLOWER_COUNT = 9;
+    var FLOWER_COUNT = 9;//STRIPECOUNT
 
     var FLOWER_SATURATION = 10;
 
-    var WIGGLE = 11;
+    var WIGGLE = 11; //BODYSIZE
     var LEAF_SHAPE = 12;
     var LEAF_VARIATION = 13;
     var LEAF_COUNT = 14;
