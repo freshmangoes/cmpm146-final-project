@@ -267,7 +267,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
         update : function(time) {
 			this.moveBee();
 			//console.log(this.root.getColor());
-			console.log(this.dna[1]);
+            //console.log("this.dna.length: " + this.dna.length);
+			console.log(this.dna[this.dna.length-1]);
             this.root.update();
         },
 
@@ -281,7 +282,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			
 			//DRAW BEES HERE
 			g.pushMatrix();
-			g.fill(.17, .92, .87, .60);
+			//g.fill(.17, .92, .87, .60);
+            g.fill(this.dna[1],.92,.87,.60);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
