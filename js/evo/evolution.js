@@ -32,13 +32,16 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
         draw : function(g) {
 
-            for (var i = 0; i < this.currentPopulation.length; i++) {
+            // for (var i = 0; i < this.currentPopulation.length; i++) {
+            for(var i = 0; i < this.currentPopulation.length; i+=2){
 
                 //this.currentPopulation[i].draw(g);
 				//Replace with:
-				this.currentPopulation[i][0].draw(g);
-				this.currentPopulation[i][1].draw(g);
-				
+				// this.currentPopulation[i][0].draw(g);
+                this.currentPopulation[i].draw(g);
+                this.currentPopulation[i+1].draw(g);
+				//this.currentPopulation[i][1].draw(g);
+
             }
 
             if (this.stats) {
@@ -55,13 +58,16 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
         update : function(time) {
 
-            for (var i = 0; i < this.currentPopulation.length; i++) {
+            // for (var i = 0; i < this.currentPopulation.length; i++) {
+            for(var i = 0; i < this.currentPopulation.length; i+=2){
 
                 //this.currentPopulation[i].update(time);
 				//Replace with:
-				this.currentPopulation[i][0].update(time);
-				this.currentPopulation[i][1].update(time);
-				
+				// this.currentPopulation[i][0].update(time);
+				// this.currentPopulation[i][1].update(time);
+                this.currentPopulation[i].update(time);
+                this.currentPopulation[i+1].update(time);
+
             }
 
             /*
@@ -107,31 +113,42 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
         respawnAll : function() {
             this.currentPopulation = [];
-            for (var i = 0; i < this.populationSize; i++) {
+            for (var i = 0; i < this.populationSize*2; i+=2) {
                 var dna = this.createDNA();
-                this.currentPopulation[i] = this.instantiate(dna, i);
+                var array = this.instantiate(dna, i);
+                this.currentPopulation[i] = array[0];
+                this.currentPopulation[i+1] = array[1];
+                //this.currentPopulation[i] = this.instantiate(dna, i);
             }
         },
 
         spawnFromSelected : function() {
             var sourceDNA = this.selected.dna;
             this.currentPopulation = [];
-            for (var i = 0; i < this.populationSize; i++) {
+            for (var i = 0; i < this.populationSize*2; i+=2) {
                 var dna = this.cloneDNA(sourceDNA);
                 this.modifyDNA(dna, this.variance);
-                this.currentPopulation[i] = this.instantiate(dna, i);
+                var array = this.instantiate(dna, i);
+                this.currentPopulation[i] = array[0];
+                this.currentPopulation[i+1] = array[1];
+                console.log("this.currentPopulation[i]: " + this.currentPopulation[i]);
+                console.log("this.currentPopulation[i+1]: " + this.currentPopulation[i+1]);
+                //this.currentPopulation[i] = this.instantiate(dna, i);
             }
         },
         spawnFromSelf : function() {
 
-            for (var i = 0; i < this.populationSize; i++) {
-                //var sourceDNA = this.currentPopulation[i].dna;
+            for (var i = 0; i < this.populationSize*2; i+=2) {
+                var sourceDNA = this.currentPopulation[i].dna;
 				//Replace with:
-				var sourceDNA = this.currentPopulation[i][0].dna;
-				
+				//var sourceDNA = this.currentPopulation[i][0].dna;
+
                 var dna = this.cloneDNA(sourceDNA);
                 this.modifyDNA(dna, this.variance);
-                this.currentPopulation[i] = this.instantiate(dna, i);
+                var array = this.instantiate(dna, i);
+                this.currentPopulation[i] = array[0];
+                this.currentPopulation[i+1] = array[1];
+                //this.currentPopulation[i] = this.instantiate(dna, i);
             }
         },
         //==================================================
@@ -139,11 +156,11 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
         selectAt : function(p) {
             var closest;
             var closestDist = 150;
-            for (var i = 0; i < this.currentPopulation.length; i++) {
-                //var current = this.currentPopulation[i];
+            for (var i = 0; i < this.currentPopulation.length; i+=2) {
+                var current = this.currentPopulation[i];
 				//Replace with:
-				var current = this.currentPopulation[i][0];
-				
+				// var current = this.currentPopulation[i][0];
+
                 var d = current.getDistanceTo(p);
                 if (d < closestDist) {
                     closestDist = d;

@@ -175,7 +175,7 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.depth = 0;
         }
     });
-	
+
 	// A root node is a special case of a bee node
     var BeeRootNode = TreeNode.extend({
         init : function(bee, dna, pos, angle, radius) {
@@ -214,7 +214,7 @@ define(["common", "graph/graph"], function(common, Graph) {
 			this.beeRoot = new RootNode(this, dna, rootPos, -Math.PI / 2,  5 + Math.random() * 4);//Create BeeBody
 
             this.addNode(this.root);
-			this.addNode(this.beeRoot);
+            //this.addNode(this.beeRoot);
 
             this.cleanup();
             for (var i = 0; i < 10; i++) {

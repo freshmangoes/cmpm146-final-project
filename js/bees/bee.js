@@ -102,16 +102,16 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             g.noStroke();
             //this.idColor.fill(g);
             //this.drawCircle(g, this.radius);
-			
+
 
             if (this.children.length === 0) {
                 g.pushMatrix();
                 this.translateTo(g);
                 g.rotate(this.angle);
-				
+
 				var bodySize = 5 * this.radius;
-				//var wingL = 
-				//var wingH = 
+				//var wingL =
+				//var wingH =
 
                 ///var petalSize = 5 * this.radius;
                 ///var aspect = .1 + .9 * this.dna[PETAL_ASPECT];
@@ -132,7 +132,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 					this.bee.bodyColor.fill(g, 0, 121, 184);
 					//g.rotate(Math.PI * 2 / 50);
 					//g.ellipse(10, -300, 15, 20);
-					
+
 				}*/
 
                 g.popMatrix();
@@ -242,7 +242,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.cleanup();
             this.iterations++;
         },
-		
+
 		moveBee : function(){
 			//check if we're at the destinaiton
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
@@ -268,7 +268,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			this.moveBee();
 			//console.log(this.root.getColor());
             //console.log("this.dna.length: " + this.dna.length);
-			console.log(this.dna[this.dna.length-1]);
+			//console.log(this.dna[this.dna.length-1]);
             this.root.update();
         },
 
@@ -279,7 +279,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 //g.fill(.59, 1, 1);
                 this.root.drawCircle(g, 20);
             }
-			
+
 			//DRAW BEES HERE
 			g.pushMatrix();
 			//g.fill(.17, .92, .87, .60);
@@ -295,22 +295,21 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             //stinger
             g.fill(this.dna[2],.92,.87,.60);
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
-			
+
 			g.popMatrix();
 			//END DRAW BEES
-			//
 			for (var i = 0; i < this.edges.length; i++){
 				var e = this.edges[i];
 				var m = e.getLength();
 				g.pushMatrix();
-				
+
 				g.beginShape();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.endShape();
-				
+
 				g.popMatrix();
 			}
             for (var i = 0; i < this.nodes.length; i++) {
@@ -320,8 +319,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             ///g.text(this.leafVolume, this.root.x, this.root.y);
             ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },
-		
-		
+
+
 
         calculateStats : function() {
             this.stats = {

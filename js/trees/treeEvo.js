@@ -35,8 +35,8 @@ define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common,
         //  into the thing you can judge
         instantiate : function(dna, index) {
 
-            var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.treeLine + Math.random() * 20);
-			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.treeLine + Math.random() * 20)-300);
+            var pos = new Vector(-300 + (app.dimensions.x - 80) * (index*.5 / this.populationSize), this.treeLine + Math.random() * 20);
+			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index*.5 / this.populationSize), (this.treeLine + Math.random() * 20)-300);
 
             var tree = new Tree(dna, pos);
 			var bee = new Bee(dna, beePos);
@@ -85,12 +85,14 @@ define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common,
 
         update : function(time) {
 
-            for (var i = 0; i < this.currentPopulation.length; i++) {
+            // for (var i = 0; i < this.currentPopulation.length; i++) {
+            for(var i = 0; i < this.currentPopulation.length; i+=2){
 
 				//this.currentPopulation[i].update(time);
-                this.currentPopulation[i][0].update(time);
-				this.currentPopulation[i][1].update(time);//might need to fix
-
+                // this.currentPopulation[i][0].update(time);
+				// this.currentPopulation[i][1].update(time);//might need to fix
+                this.currentPopulation[i].update(time);
+                this.currentPopulation[i+1].update(time);
                 // replace
 
                 //  console.log(x);

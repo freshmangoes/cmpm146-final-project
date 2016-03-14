@@ -121,7 +121,7 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 app.evolution1.respawnAll();
 				//app.evolution2.respawnAll();
             });
-            
+
             $("#debug").click(function() {
                 app.showDebugInfo = !app.showDebugInfo;
             });
