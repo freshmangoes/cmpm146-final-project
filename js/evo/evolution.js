@@ -34,7 +34,11 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-                this.currentPopulation[i].draw(g);
+                //this.currentPopulation[i].draw(g);
+				//Replace with:
+				this.currentPopulation[i][0].draw(g);
+				this.currentPopulation[i][1].draw(g);
+				
             }
 
             if (this.stats) {
@@ -53,7 +57,11 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-                this.currentPopulation[i].update(time);
+                //this.currentPopulation[i].update(time);
+				//Replace with:
+				this.currentPopulation[i][0].update(time);
+				this.currentPopulation[i][1].update(time);
+				
             }
 
             /*
@@ -117,7 +125,10 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
         spawnFromSelf : function() {
 
             for (var i = 0; i < this.populationSize; i++) {
-                var sourceDNA = this.currentPopulation[i].dna;
+                //var sourceDNA = this.currentPopulation[i].dna;
+				//Replace with:
+				var sourceDNA = this.currentPopulation[i][0].dna;
+				
                 var dna = this.cloneDNA(sourceDNA);
                 this.modifyDNA(dna, this.variance);
                 this.currentPopulation[i] = this.instantiate(dna, i);
@@ -129,7 +140,10 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
             var closest;
             var closestDist = 150;
             for (var i = 0; i < this.currentPopulation.length; i++) {
-                var current = this.currentPopulation[i];
+                //var current = this.currentPopulation[i];
+				//Replace with:
+				var current = this.currentPopulation[i][0];
+				
                 var d = current.getDistanceTo(p);
                 if (d < closestDist) {
                     closestDist = d;
