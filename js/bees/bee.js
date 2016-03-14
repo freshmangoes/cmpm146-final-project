@@ -281,7 +281,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			
 			//DRAW BEES HERE
 			g.pushMatrix();
-			//g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
+			g.fill(.17, .92, .87, .60);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
