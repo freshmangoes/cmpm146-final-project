@@ -18,11 +18,14 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
     var beeCount = 0;
 
     var BeeNode = Graph.Node.extend({
-        init : function(parent, childPct) {
+        init : function(parent, childPct,treeRef) {
 
             this._super();
             this.parent = parent;
             this.depth = 0;
+
+			this.treesRef=treeRef;
+			//console.log(this.treesRef);
 
             // No children yet
             this.children = [];
@@ -118,22 +121,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 ///var petalH = petalSize * aspect;
                 ///var petalW = petalSize * (1 - aspect);
 
-                // Draw some flowers?  What kind?
-
-                /*for (var i = 0; i < this.bee.petalCount; i++) {
-                    this.bee.bodyColor.fill(g, .1 * Math.sin(i), 1);
-                    g.rotate(Math.PI * 2 / this.bee.petalCount);
-                    g.ellipse(petalH * 1.5, 0, petalH, petalW);
-                    this.bee.petalVolume += petalH * petalW;
-
-                }*/
-				//Draw some bees
-				/*for (var i = 0; i < 1; i++){
-					this.bee.bodyColor.fill(g, 0, 121, 184);
-					//g.rotate(Math.PI * 2 / 50);
-					//g.ellipse(10, -300, 15, 20);
-					
-				}*/
 
                 g.popMatrix();
 
@@ -175,7 +162,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
     });
 
     var Bee = Graph.extend({
-        init : function(dna, rootPos) {
+        init : function(dna, rootPos,treeRef) {
             this._super();
             this.iterations = 0;
             this.dna = dna;
@@ -189,6 +176,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			this.rotation=Math.random()*180
 			this.destX = Math.floor(Math.random()*400-300);
 			this.destY = Math.floor(Math.random()*600-300);
+			this.treeRefs=treeRef;
             beeCount++;
 
             Bee.beeCount = beeCount;
@@ -204,10 +192,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 this.cleanup();
 
             }
-
-            ///this.leafCount = Math.floor(this.dna[BODY_SIZE] * 5);
-
-            ///this.petalCount = Math.round(8 * this.dna[WING_SIZE]);
 
             this.bodyColor = new common.KColor((this.dna[BODY_COLOR] * 1.2 + .9) % 1, this.dna[BODY_COLOR], .6, .3);
 
@@ -246,7 +230,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 		moveBee : function(){
 			//check if we're at the destinaiton
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
-				console.log("stuck");
+				console.log(this.treeRefs);
 				//assign new destination
 				this.destX = Math.floor(Math.random()*400-300);
 				this.destY = Math.floor(Math.random()*600-300);
@@ -267,7 +251,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
         update : function(time) {
 			this.moveBee();
 			//console.log(this.root.getColor());
-			console.log(this.dna[1]);
+			//console.log(this.dna[1]);
             this.root.update();
         },
 
@@ -331,6 +315,11 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 this.nodes[i].calculateStats(this.stats);
             }
         },
+		
+		setTreeRef : function(tree){
+			this.treeRefs=tree;
+		}
+		
     });
     return Bee;
 

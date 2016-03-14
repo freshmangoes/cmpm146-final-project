@@ -11,13 +11,13 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
     }
 
     var BeeEvolution = Evolution.extend({
-        init : function() {
+        init : function(tree) {
             this.offset = 0;
             this.last = 0;
             this.populationSize = 7;
             this.plantSpacing = 40;
             this.grass = [];
-
+			this.treeRef=tree;
             this.beeLine = 200;
 
             // make grass
@@ -29,6 +29,10 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
             }*/
             this._super();
         },
+		
+		setTreeRef : function(tree){
+			treeRef=tree;
+		},
 
         //==================================================
         // a way to turn the thing you can modify
@@ -38,8 +42,9 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
             //var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.beeLine + Math.random() * 20);
 
 			var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.beeLine + Math.random() * 20)-300);
-            var bee = new Bee(dna, pos);
-
+			console.log("pre");
+			var bee = new Bee(dna, pos,this.treeRef);
+			console.log("post");
             return bee;
         },
 

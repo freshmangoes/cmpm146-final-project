@@ -52,8 +52,7 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 // TODO switch between BoidEvo and CustomEvo here
                 //app.evolution = new BoidEvo();
                 app.evolution1 = new TreeEvo();
-				app.evolution2 = new BeeEvo();
-                //    app.evolution = new CustomEvo();
+				app.evolution2 = new BeeEvo(app.evolution1);
 
                 g.size(w, h);
 
