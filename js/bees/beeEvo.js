@@ -37,8 +37,8 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
 
             //var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.beeLine + Math.random() * 20);
 
-			var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.beeLine + Math.random() * 20)-300);
-            var bee = new Bee(dna, pos);
+			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.beeLine + Math.random() * 20)-300);
+            var bee = new Bee(dna, beePos);
 
             return bee;
         },
