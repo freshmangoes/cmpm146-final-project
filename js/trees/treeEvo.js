@@ -2,7 +2,7 @@
  * @author Kate
  */
 
-define(["common", "../evo/evolution", "./tree"], function(common, Evolution, Tree) {
+define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common, Evolution, Tree, Bee) {
 
     function gaussRandom() {
         var r = 2 * (Math.random() - .5);
@@ -36,10 +36,12 @@ define(["common", "../evo/evolution", "./tree"], function(common, Evolution, Tre
         instantiate : function(dna, index) {
 
             var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.treeLine + Math.random() * 20);
+			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.treeLine + Math.random() * 20)-300);
 
             var tree = new Tree(dna, pos);
+			var bee = new Bee(dna, beePos);
 
-            return tree;
+            return [tree, bee];
         },
 
         // A thing you can modify
@@ -85,7 +87,9 @@ define(["common", "../evo/evolution", "./tree"], function(common, Evolution, Tre
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-                this.currentPopulation[i].update(time);
+				//this.currentPopulation[i].update(time);
+                this.currentPopulation[i][0].update(time);
+				this.currentPopulation[i][1].update(time);//might need to fix
 
                 // replace
 

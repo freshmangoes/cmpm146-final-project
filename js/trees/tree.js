@@ -175,6 +175,21 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.depth = 0;
         }
     });
+	
+	// A root node is a special case of a bee node
+    var BeeRootNode = TreeNode.extend({
+        init : function(bee, dna, pos, angle, radius) {
+            this.dna = dna;
+            this._super();
+            this.bee = bee;
+
+            this.setTo(pos);
+            this.radius = radius;
+
+            this.angle = angle;
+            this.depth = 0;
+        }
+    });
 
     var Tree = Graph.extend({
         init : function(dna, rootPos) {
@@ -182,14 +197,24 @@ define(["common", "graph/graph"], function(common, Graph) {
             this.iterations = 0;
             this.dna = dna;
             this.id = treeCount;
+			//these are values that the bee should be able to see.
+			//bees will interact with trees differently based on them
+			//NOTE: these values should be part of dna, so we'll need to
+			//add them inside the dna instead of here
+			this.pollenTubeLength;
+			this.numPollen;
+			this.fragility;
+			this.atractiveness;
             treeCount++;
 
             Tree.treeCount = treeCount;
 
             // Create a root node
             this.root = new RootNode(this, dna, rootPos, -Math.PI / 2, 5 + Math.random() * 4);
+			this.beeRoot = new RootNode(this, dna, rootPos, -Math.PI / 2,  5 + Math.random() * 4);//Create BeeBody
 
             this.addNode(this.root);
+			this.addNode(this.beeRoot);
 
             this.cleanup();
             for (var i = 0; i < 10; i++) {
