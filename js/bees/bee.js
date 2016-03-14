@@ -281,8 +281,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			
 			//DRAW BEES HERE
 			g.pushMatrix();
-			g.colorMode(g.HSB, 100);
-			g.fill(17, 92, 87, 60);
+			g.fill(.17, .92, .87, .60);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
@@ -292,7 +291,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
 			
-			g.colorMode(g.HSB, 1);
 			g.popMatrix();
 			//END DRAW BEES
 			//
