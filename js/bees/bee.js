@@ -3,14 +3,17 @@
  */
 
 define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, treeEvo) {
-    var BODY_SIZE = 0;
-    var WING_SIZE = 1;
-    var STINGER_SIZE = 2;
+    var BODY_COLOR = 0;
+    var WING_COLOR	= 1;
+    var STINGER_COLOR = 2;
     var BODY_COLOR = 3;
 	var STRIPE_COUNT = 4;
 	var SATURATION = 5;
 	var HUE_START = 6;
     var HUE_DIFF = 7;
+	var BODY_HEIGHT=8;
+	var BODY_WIDTH=9;
+	var WING_WIDTH=10;
 
     var graphCount = 0;
     // Make some custom fractals
@@ -269,10 +272,15 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
 			//body
+			g.fill(this.dna[BODY_COLOR], 1, 1, .6);
 			g.ellipse(0, 0, this.bodyWidth, this.bodyWidth*2);
 			//wings
+			g.fill(this.dna[WING_COLOR], 1, 1, .6);
 			g.ellipse(-this.bodyWidth/2-this.wingWidth/2, 0, this.wingWidth, this.radius);
 			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
+			//stinger
+			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
+
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
 			
 			g.popMatrix();
