@@ -289,8 +289,11 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			//body
 			g.ellipse(0, 0, this.bodyWidth, this.bodyWidth*2);
 			//wings
+            g.fill(this.dna[3],.92,.87,.60);
 			g.ellipse(-this.bodyWidth/2-this.wingWidth/2, 0, this.wingWidth, this.radius);
 			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
+            //stinger
+            g.fill(this.dna[2],.92,.87,.60);
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
 			
 			g.popMatrix();
