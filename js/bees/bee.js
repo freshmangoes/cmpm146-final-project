@@ -46,7 +46,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 
             // Make a color for this node
 			this.idColor = new common.KColor("yellow");
-            //this.idColor = new common.KColor((3 + this.dna[HUE_START] + .1 * this.dna[HUE_DIFF] * this.depth) % 1, -this.dna[SATURATION] * this.depth * .08 + .7 + .3 * this.dna[SATURATION] * (Math.sin(this.depth)), .3 + .1 * this.depth);
+
 
         },
 
@@ -62,22 +62,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.childIndex = this.parent.children.length;
             this.parent.children.push(this);
 
-            // As a child, offset the child index
-            ///var skew = Math.pow(this.dna[ANGLE_SKEW] - .5, 3);
-            ///var spread = (1.5 * this.dna[BUSHINESS]);
-            ///this.baseAngle = this.parent.angle + spread * (this.childPct - .5) + skew;
-
-            ///this.baseAngle += this.dna[WIGGLE] * .1 * Math.sin(this.depth) * this.depth;
-
-            // Set the position relative to the parent
-            ///var mult = 15 - 12 * this.dna[BUSHINESS];
-            ///this.branchLength = .7 * mult * this.parent.radius;
-
-            // Add a variance in length
-            ///this.branchLength *= (1 + 1 * this.dna[VARIATION] * (Math.random() - .5));
-            ///this.radius = this.parent.radius * (.6 + .3 * this.dna[SHRINKAGE]);
-
-            ///this.setToPolarOffset(this.parent, this.branchLength, this.baseAngle);
 
         },
 
@@ -308,9 +292,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             for (var i = 0; i < this.nodes.length; i++) {
                 this.nodes[i].draw(g);
             }
-            //g.fill(0);
-            ///g.text(this.leafVolume, this.root.x, this.root.y);
-            ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },
 
 
@@ -320,8 +301,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 height : 0,
                 left : 999,
                 right : -999,
-                ///leafVolume : 0,
-                ///flowerVolume : 0,
             };
 
             for (var i = 0; i < this.nodes.length; i++) {
