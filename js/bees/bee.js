@@ -159,9 +159,9 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			this.radius = this.dna[BODY_HEIGHT] * 2;
 			this.bodyWidth = this.dna[BODY_WIDTH] * 10;
 			this.wingWidth = this.dna[WING_WIDTH] * 11;
-			this.rotation=Math.random()*180
-			this.destX = Math.floor(Math.random()*400-300);
-			this.destY = Math.floor(Math.random()*600-300);
+			
+			
+			//this.angle = 0;
 			this.treeRefs=treeRef;
             beeCount++;
 
@@ -169,8 +169,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 
             // Create a root node
             this.root = new RootNode(this, dna, rootPos, -Math.PI / 2,  5 + Math.random() * 4);//Create BeeBody
-
-            this.addNode(this.root);
+			this.addNode(this.root);
 
             this.cleanup();
             for (var i = 0; i < 3; i++) {
@@ -180,7 +179,11 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             }
 
             this.bodyColor = new common.KColor((this.dna[BODY_COLOR] * 1.2 + .9) % 1, this.dna[BODY_COLOR], .6, .3);
-
+			
+			//move bee
+			this.destX = this.root.x;
+			this.destY = this.root.y;
+			this.moveBee();
         },
 
         getDistanceTo : function(target) {
@@ -218,13 +221,23 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
 				console.log(this.treeRefs);
 				//assign new destination
-				this.destX = Math.floor(Math.random()*400-300);
+				this.destX = Math.floor(Math.random()*800-400);
 				this.destY = Math.floor(Math.random()*600-300);
+				console.log("x="+this.destX+" y="+this.destY);
+				//this.rotation = Math.atan2(((this.root.y - this.destY)+90), ((this.root.x - this.destX)+90));
+				this.rotation = Math.atan2((this.root.y - this.destY), (this.root.x - this.destX));
+				//is.rotation *= (180/Math.PI);
 			}
 			//move towards destination
-			this.destX<this.root.x?this.root.x-=2:this.root.x+=2;
-			this.destY<this.root.y?this.root.y-=2:this.root.y+=2;
-			//this.rotation  = 180*Math.atan(this.root.y/this.root.x)/Math.PI;
+			var speed = 2;
+			var rot = this.rotation//(Math.PI/180);
+			this.root.x-=speed*Math.cos(rot);
+			this.root.y-=speed*Math.sin(rot);
+			//console.log(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2)));
+			//this.rotation  = 180*Math.atan(this.root.y/this.root.x)/Math.PI;//
+			
+			
+			
 		},
 
         select : function() {
@@ -253,7 +266,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			g.pushMatrix();
 			//g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
 			g.translate(this.root.x,this.root.y);
-			g.rotate(this.rotation);
+			g.rotate(this.rotation+3*Math.PI/2);
 			//body
 			g.fill(this.dna[BODY_COLOR], 1, 1, .6);
 			g.ellipse(0, 0, this.bodyWidth, this.bodyWidth*2);
