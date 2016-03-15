@@ -71,13 +71,13 @@ define(["common", "../evo/evolution", "./tree"], function(common, Evolution, Tre
             }
         },
 
-        selectAt : function(target) {
+        selectAt : function(target, beeRef) {
             this._super(target);
             console.log(this.selected);
 
             if (this.selected) {
 
-                this.spawnFromSelected();
+                this.spawnFromSelected(beeRef);
             }
         },
 

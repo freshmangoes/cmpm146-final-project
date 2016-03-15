@@ -105,13 +105,14 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
             }
         },
 
-        spawnFromSelected : function() {
+        spawnFromSelected : function(beeRef) {
             var sourceDNA = this.selected.dna;
             this.currentPopulation = [];
             for (var i = 0; i < this.populationSize; i++) {
                 var dna = this.cloneDNA(sourceDNA);
                 this.modifyDNA(dna, this.variance);
                 this.currentPopulation[i] = this.instantiate(dna, i);
+				beeRef.currentPopulation[i] = beeRef.instantiate(dna, i);
             }
         },
         spawnFromSelf : function() {

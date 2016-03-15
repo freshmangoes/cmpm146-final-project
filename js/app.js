@@ -113,7 +113,7 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 var relY = e.pageY - parentOffset.top - app.dimensions.y / 2;
                 console.log(relX + " " + relY);
 
-                app.evolution1.selectAt(new Vector(relX, relY));
+                app.evolution1.selectAt(new Vector(relX, relY), app.evolution2);
             });
 
             $("#replant").click(function() {
