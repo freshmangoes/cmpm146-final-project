@@ -7,13 +7,15 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
     var WING_COLOR	= 1;
     var STINGER_COLOR = 2;
     var BODY_COLOR = 3;
-	var STRIPE_COUNT = 4;
+	var STRIPE_COLOR = 4;
 	var SATURATION = 5;
 	var HUE_START = 6;
     var HUE_DIFF = 7;
 	var BODY_HEIGHT=8;
 	var BODY_WIDTH=9;
 	var WING_WIDTH=10;
+	var STINGER_WIDTH = 11;		
+    var STINGER_HEIGHT = 12
 
     var graphCount = 0;
     // Make some custom fractals
@@ -43,7 +45,6 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 
             // Make a color for this node
 			this.idColor = new common.KColor("yellow");
-            //this.idColor = new common.KColor((3 + this.dna[HUE_START] + .1 * this.dna[HUE_DIFF] * this.depth) % 1, -this.dna[SATURATION] * this.depth * .08 + .7 + .3 * this.dna[SATURATION] * (Math.sin(this.depth)), .3 + .1 * this.depth);
 
         },
 
@@ -59,22 +60,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.childIndex = this.parent.children.length;
             this.parent.children.push(this);
 
-            // As a child, offset the child index
-            ///var skew = Math.pow(this.dna[ANGLE_SKEW] - .5, 3);
-            ///var spread = (1.5 * this.dna[BUSHINESS]);
-            ///this.baseAngle = this.parent.angle + spread * (this.childPct - .5) + skew;
-
-            ///this.baseAngle += this.dna[WIGGLE] * .1 * Math.sin(this.depth) * this.depth;
-
-            // Set the position relative to the parent
-            ///var mult = 15 - 12 * this.dna[BUSHINESS];
-            ///this.branchLength = .7 * mult * this.parent.radius;
-
-            // Add a variance in length
-            ///this.branchLength *= (1 + 1 * this.dna[VARIATION] * (Math.random() - .5));
-            ///this.radius = this.parent.radius * (.6 + .3 * this.dna[SHRINKAGE]);
-
-            ///this.setToPolarOffset(this.parent, this.branchLength, this.baseAngle);
+       
 
         },
 
@@ -116,13 +102,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 g.rotate(this.angle);
 				
 				var bodySize = 5 * this.radius;
-				//var wingL = 
-				//var wingH = 
 
-                ///var petalSize = 5 * this.radius;
-                ///var aspect = .1 + .9 * this.dna[PETAL_ASPECT];
-                ///var petalH = petalSize * aspect;
-                ///var petalW = petalSize * (1 - aspect);
 
 
                 g.popMatrix();
@@ -173,9 +153,12 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			//this next chunk deals with appearance
 			//NOTE: these values should be part of dna, so we'll need to
 			//add them inside the dna instead of here
-			this.radius=Math.random()*8;
+			/*this.radius=Math.random()*8;
 			this.bodyWidth=Math.random()*10;
-			this.wingWidth=Math.random()*11;
+			this.wingWidth=Math.random()*11;*/
+			this.radius = this.dna[BODY_HEIGHT] * 2;
+			this.bodyWidth = this.dna[BODY_WIDTH] * 10;
+			this.wingWidth = this.dna[WING_WIDTH] * 11;
 			this.rotation=Math.random()*180
 			this.destX = Math.floor(Math.random()*400-300);
 			this.destY = Math.floor(Math.random()*600-300);
@@ -282,6 +265,17 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
 
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
+			
+			
+			//stinger
+			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
+			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
+
+            //stripes
+            g.fill(this.dna[STRIPE_COLOR], 1, 1, 1);
+            g.rect(-this.bodyWidth+this.bodyWidth*0.2, this.bodyWidth+(-2*this.bodyWidth), this.bodyWidth*2-(this.bodyWidth*0.4), 2);
+            g.rect(-this.bodyWidth, 0 , this.bodyWidth*2, 2);
+            g.rect(-this.bodyWidth+this.bodyWidth*0.25, this.bodyWidth, this.bodyWidth*2-(this.bodyWidth*0.5), 2);
 			
 			g.popMatrix();
 			//END DRAW BEES
