@@ -3,17 +3,20 @@
  */
 
 define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, treeEvo) {
+
     var BODY_COLOR = 0;
     var WING_COLOR	= 1;
     var STINGER_COLOR = 2;
     var BODY_COLOR = 3;
-	var STRIPE_COUNT = 4;
+	var STRIPE_COLOR = 4;
 	var SATURATION = 5;
 	var HUE_START = 6;
     var HUE_DIFF = 7;
-	var BODY_HEIGHT=8;
-	var BODY_WIDTH=9;
-	var WING_WIDTH=10;
+	var BODY_HEIGHT = 8;
+	var BODY_WIDTH = 9;
+	var WING_WIDTH = 10;
+    var STINGER_WIDTH = 11;
+    var STINGER_HEIGHT = 12
 
     var graphCount = 0;
     // Make some custom fractals
@@ -108,22 +111,14 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             g.noStroke();
             //this.idColor.fill(g);
             //this.drawCircle(g, this.radius);
-			
+
 
             if (this.children.length === 0) {
                 g.pushMatrix();
                 this.translateTo(g);
                 g.rotate(this.angle);
-				
+
 				var bodySize = 5 * this.radius;
-				//var wingL = 
-				//var wingH = 
-
-                ///var petalSize = 5 * this.radius;
-                ///var aspect = .1 + .9 * this.dna[PETAL_ASPECT];
-                ///var petalH = petalSize * aspect;
-                ///var petalW = petalSize * (1 - aspect);
-
 
                 g.popMatrix();
 
@@ -173,13 +168,16 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			//this next chunk deals with appearance
 			//NOTE: these values should be part of dna, so we'll need to
 			//add them inside the dna instead of here
-			this.radius=Math.random()*8;
-			this.bodyWidth=Math.random()*10;
-			this.wingWidth=Math.random()*11;
-			this.rotation=Math.random()*180
+			// this.radius = Math.random()*8;
+            this.radius = this.dna[BODY_HEIGHT] * 2;
+			// this.bodyWidth = Math.random()*10;
+            this.bodyWidth = this.dna[BODY_WIDTH] * 10;
+			// this.wingWidth = Math.random()*11;
+            this.wingWidth = this.dna[WING_WIDTH] * 11;
+			this.rotation = Math.random()*180
 			this.destX = Math.floor(Math.random()*400-300);
 			this.destY = Math.floor(Math.random()*600-300);
-			this.treeRefs=treeRef;
+			this.treeRefs = treeRef;
             beeCount++;
 
             Bee.beeCount = beeCount;
@@ -229,7 +227,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.cleanup();
             this.iterations++;
         },
-		
+
 		moveBee : function(){
 			//check if we're at the destinaiton
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
@@ -265,39 +263,46 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 //g.fill(.59, 1, 1);
                 this.root.drawCircle(g, 20);
             }
-			
+
 			//DRAW BEES HERE
 			g.pushMatrix();
-			//g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
 			g.translate(this.root.x,this.root.y);
 			g.rotate(this.rotation);
+
 			//body
 			g.fill(this.dna[BODY_COLOR], 1, 1, .6);
 			g.ellipse(0, 0, this.bodyWidth, this.bodyWidth*2);
+
 			//wings
 			g.fill(this.dna[WING_COLOR], 1, 1, .6);
 			g.ellipse(-this.bodyWidth/2-this.wingWidth/2, 0, this.wingWidth, this.radius);
 			g.ellipse(this.bodyWidth/2+this.wingWidth/2, 0, this.wingWidth, this.radius);
+
 			//stinger
 			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
-
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
-			
+
+            //stripes
+            g.fill(this.dna[STRIPE_COLOR], 1, 1, 1);
+            g.rect(-this.bodyWidth+this.bodyWidth*0.2, this.bodyWidth+(-2*this.bodyWidth), this.bodyWidth*2-(this.bodyWidth*0.4), 2);
+            g.rect(-this.bodyWidth, 0 , this.bodyWidth*2, 2);
+            g.rect(-this.bodyWidth+this.bodyWidth*0.25, this.bodyWidth, this.bodyWidth*2-(this.bodyWidth*0.5), 2);
+
 			g.popMatrix();
 			//END DRAW BEES
-			//
+
 			for (var i = 0; i < this.edges.length; i++){
 				var e = this.edges[i];
 				var m = e.getLength();
 				g.pushMatrix();
-				
+
 				g.beginShape();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.endShape();
-				
+
 				g.popMatrix();
 			}
             for (var i = 0; i < this.nodes.length; i++) {
@@ -307,8 +312,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             ///g.text(this.leafVolume, this.root.x, this.root.y);
             ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },
-		
-		
+
+
 
         calculateStats : function() {
             this.stats = {
@@ -323,11 +328,11 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 this.nodes[i].calculateStats(this.stats);
             }
         },
-		
+
 		setTreeRef : function(tree){
 			this.treeRefs=tree;
 		}
-		
+
     });
     return Bee;
 
