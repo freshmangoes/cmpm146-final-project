@@ -1,5 +1,5 @@
 /**
- * @author Gavin, Alex, and Blake
+ * @author Gavin, Alex, Blake, and Kyle
  */
 
 define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, treeEvo) {

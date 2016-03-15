@@ -1,5 +1,5 @@
 /**
- * @author Gavin, Alex, and Blake
+ * @author Gavin, Alex, Blake, and Kyle
  */
 
 define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee) {
@@ -29,7 +29,7 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
             }*/
             this._super();
         },
-		
+
 		setTreeRef : function(tree){
 			treeRef=tree;
 		},
