@@ -1,5 +1,5 @@
 /**
- * @author Gavin, Alex, and Blake
+ * @author Gavin, Alex, Blake, Kyle
  */
 
 define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee) {

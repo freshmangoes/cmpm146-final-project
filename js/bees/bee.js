@@ -1,5 +1,5 @@
 /**
- * @author Gavin, Alex, and Blake
+ * @author Gavin, Alex, Blake, Kyle
  */
 
 define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, treeEvo) {
@@ -14,7 +14,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 	var BODY_HEIGHT=8;
 	var BODY_WIDTH=9;
 	var WING_WIDTH=10;
-	var STINGER_WIDTH = 11;		
+	var STINGER_WIDTH = 11;
     var STINGER_HEIGHT = 12
 
     var graphCount = 0;
@@ -60,7 +60,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.childIndex = this.parent.children.length;
             this.parent.children.push(this);
 
-       
+
 
         },
 
@@ -94,13 +94,13 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             g.noStroke();
             //this.idColor.fill(g);
             //this.drawCircle(g, this.radius);
-			
+
 
             if (this.children.length === 0) {
                 g.pushMatrix();
                 this.translateTo(g);
                 g.rotate(this.angle);
-				
+
 				var bodySize = 5 * this.radius;
 
 
@@ -159,8 +159,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			this.radius = this.dna[BODY_HEIGHT] * 2;
 			this.bodyWidth = this.dna[BODY_WIDTH] * 10;
 			this.wingWidth = this.dna[WING_WIDTH] * 11;
-			
-			
+
+
 			//this.angle = 0;
 			this.treeRefs=treeRef;
             beeCount++;
@@ -179,7 +179,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             }
 
             this.bodyColor = new common.KColor((this.dna[BODY_COLOR] * 1.2 + .9) % 1, this.dna[BODY_COLOR], .6, .3);
-			
+
 			//move bee
 			this.destX = this.root.x;
 			this.destY = this.root.y;
@@ -215,7 +215,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             this.cleanup();
             this.iterations++;
         },
-		
+
 		moveBee : function(){
 			//check if we're at the destinaiton
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
@@ -235,9 +235,9 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			this.root.y-=speed*Math.sin(rot);
 			//console.log(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2)));
 			//this.rotation  = 180*Math.atan(this.root.y/this.root.x)/Math.PI;//
-			
-			
-			
+
+
+
 		},
 
         select : function() {
@@ -261,7 +261,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 //g.fill(.59, 1, 1);
                 this.root.drawCircle(g, 20);
             }
-			
+
 			//DRAW BEES HERE
 			g.pushMatrix();
 			//g.fill(Math.random()*255, Math.random()*255, Math.random()*255);
@@ -278,8 +278,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
 
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
-			
-			
+
+
 			//stinger
 			g.fill(this.dna[STINGER_COLOR], 1, 1, .6);
 			g.triangle(-this.bodyWidth, 0, this.bodyWidth, 0, 0, this.bodyWidth*3);
@@ -289,7 +289,7 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             g.rect(-this.bodyWidth+this.bodyWidth*0.2, this.bodyWidth+(-2*this.bodyWidth), this.bodyWidth*2-(this.bodyWidth*0.4), 2);
             g.rect(-this.bodyWidth, 0 , this.bodyWidth*2, 2);
             g.rect(-this.bodyWidth+this.bodyWidth*0.25, this.bodyWidth, this.bodyWidth*2-(this.bodyWidth*0.5), 2);
-			
+
 			g.popMatrix();
 			//END DRAW BEES
 			//
@@ -297,14 +297,14 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 				var e = this.edges[i];
 				var m = e.getLength();
 				g.pushMatrix();
-				
+
 				g.beginShape();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.vertex();
 				g.endShape();
-				
+
 				g.popMatrix();
 			}
             for (var i = 0; i < this.nodes.length; i++) {
@@ -314,8 +314,8 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
             ///g.text(this.leafVolume, this.root.x, this.root.y);
             ///g.text(this.petalVolume, this.root.x, this.root.y + 13);
         },
-		
-		
+
+
 
         calculateStats : function() {
             this.stats = {
@@ -330,11 +330,11 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
                 this.nodes[i].calculateStats(this.stats);
             }
         },
-		
+
 		setTreeRef : function(tree){
 			this.treeRefs=tree;
 		}
-		
+
     });
     return Bee;
 
