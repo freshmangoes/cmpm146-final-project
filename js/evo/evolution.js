@@ -107,21 +107,34 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
 		findBestBee : function(treeDNA, beeArray){
 			var leastDiff = 0;
+			var bodyDiff = 0;
+			var shrinkDiff = 0;
 			var leastBeeIndex;
 			for(var i=0;i<beeArray.length;i++){
 				var currDiff=0;//stores cummulative difference between bee and tree
 				
 				// compare dna
 				//body_height and leaf shape
-				currDiff += treeDNA[12]-beeArray[i].dna[8];
+				bodyDiff += treeDNA[12]-beeArray[i].dna[8];
 				
 				//body_width and leaf shape
-				currDiff += treeDNA[15]-beeArray[i].dna[9];
+				bodyDiff += treeDNA[15]-beeArray[i].dna[9];
 				
 				//bushy and wing width
-				currDiff += treeDNA[5]-beeArray[i].dna[10];
+				//bodyDiff += treeDNA[5]-beeArray[i].dna[10];
 				
+				//shrink and body height
+				shrinkDiff += treeDNA[4]-beeArray[i].dna[8];
 				
+				//shrink and body width
+				shrinkDiff += treeDNA[4]-beeArray[i].dna[9];
+				
+				if (bodyDiff>shrinkDiff){
+					currDiff = bodyDiff;
+				}
+				else{
+					currDiff = shrinkDiff;
+				}
 				//then add to currDiff
 				//bee with lowest currDiff is the best bee
 				if (leastDiff > currDiff || leastDiff == 0){
