@@ -2,7 +2,7 @@
  * @author Kate
  */
 
-define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common, Evolution, Tree, Bee) {
+define(["common", "../evo/evolution", "./tree"], function(common, Evolution, Tree) {
 
     function gaussRandom() {
         var r = 2 * (Math.random() - .5);
@@ -36,12 +36,10 @@ define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common,
         instantiate : function(dna, index) {
 
             var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.treeLine + Math.random() * 20);
-			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.treeLine + Math.random() * 20)-300);
 
             var tree = new Tree(dna, pos);
-			var bee = new Bee(dna, beePos);
 
-            return [tree, bee];
+            return tree;
         },
 
         // A thing you can modify
@@ -73,13 +71,12 @@ define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common,
             }
         },
 
-        selectAt : function(target) {
+        selectAt : function(target, beeRefs) {
+			//target is the selected tree, beeRef is the bee evolution
             this._super(target);
-            console.log(this.selected);
 
             if (this.selected) {
-
-                this.spawnFromSelected();
+                this.spawnFromSelected(beeRefs);
             }
         },
 
@@ -87,9 +84,7 @@ define(["common", "../evo/evolution", "./tree", "../bees/bee"], function(common,
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-				//this.currentPopulation[i].update(time);
-                this.currentPopulation[i][0].update(time);
-				this.currentPopulation[i][1].update(time);//might need to fix
+                this.currentPopulation[i].update(time);
 
                 // replace
 

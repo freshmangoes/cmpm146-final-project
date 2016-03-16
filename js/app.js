@@ -52,8 +52,7 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 // TODO switch between BoidEvo and CustomEvo here
                 //app.evolution = new BoidEvo();
                 app.evolution1 = new TreeEvo();
-				//app.evolution2 = new BeeEvo();
-                //    app.evolution = new CustomEvo();
+				app.evolution2 = new BeeEvo(app.evolution1);
 
                 g.size(w, h);
 
@@ -74,13 +73,13 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                     // Update time
                     app.time.updateTime();
                     app.evolution1.update(app.time);
-					//app.evolution2.update(app.time);
+					app.evolution2.update(app.time);
 
 
                     g.pushMatrix();
                     g.translate(w / 2, h / 2);
                     app.evolution1.draw(g);
-					//app.evolution2.draw(g);
+					app.evolution2.draw(g);
 
                     g.popMatrix();
                 };
@@ -112,14 +111,13 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 //or $(this).offset(); if you really just want the current element's offset
                 var relX = e.pageX - parentOffset.left - app.dimensions.x / 2;
                 var relY = e.pageY - parentOffset.top - app.dimensions.y / 2;
-                console.log(relX + " " + relY);
 
-                app.evolution1.selectAt(new Vector(relX, relY));
+                app.evolution1.selectAt(new Vector(relX, relY), app.evolution2);
             });
 
             $("#replant").click(function() {
                 app.evolution1.respawnAll();
-				//app.evolution2.respawnAll();
+				app.evolution2.respawnAll();
             });
             
             $("#debug").click(function() {

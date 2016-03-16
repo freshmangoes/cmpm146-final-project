@@ -34,11 +34,7 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-                //this.currentPopulation[i].draw(g);
-				//Replace with:
-				this.currentPopulation[i][0].draw(g);
-				this.currentPopulation[i][1].draw(g);
-				
+                this.currentPopulation[i].draw(g);
             }
 
             if (this.stats) {
@@ -57,11 +53,7 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 
             for (var i = 0; i < this.currentPopulation.length; i++) {
 
-                //this.currentPopulation[i].update(time);
-				//Replace with:
-				this.currentPopulation[i][0].update(time);
-				this.currentPopulation[i][1].update(time);
-				
+                this.currentPopulation[i].update(time);
             }
 
             /*
@@ -113,22 +105,32 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
             }
         },
 
-        spawnFromSelected : function() {
-            var sourceDNA = this.selected.dna;
+		findBestBee : function(treeDNA, beeArray){
+			//compare the treeDNA to the dna of each bee in the array.
+			//return the bee that is the most similar to the given tree
+			return beeArray[0];
+		},
+		
+        spawnFromSelected : function(beeRef) {
+			var bestBee = this.findBestBee(this.selected.dna,beeRef.currentPopulation);
+            var sourceTreeDNA = this.selected.dna;
+			var sourceBeeDNA = bestBee.dna;
             this.currentPopulation = [];
             for (var i = 0; i < this.populationSize; i++) {
-                var dna = this.cloneDNA(sourceDNA);
-                this.modifyDNA(dna, this.variance);
-                this.currentPopulation[i] = this.instantiate(dna, i);
+                var treeDNA = this.cloneDNA(sourceTreeDNA);
+				var beeDNA = this.cloneDNA(sourceBeeDNA);
+                this.modifyDNA(treeDNA, this.variance);
+				this.modifyDNA(beeDNA, this.variance);
+                this.currentPopulation[i] = this.instantiate(treeDNA, i);
+				//next line needs to use beeDNA
+				beeRef.currentPopulation[i] = beeRef.instantiate(beeDNA, i);
             }
         },
+		
         spawnFromSelf : function() {
 
             for (var i = 0; i < this.populationSize; i++) {
-                //var sourceDNA = this.currentPopulation[i].dna;
-				//Replace with:
-				var sourceDNA = this.currentPopulation[i][0].dna;
-				
+                var sourceDNA = this.currentPopulation[i].dna;
                 var dna = this.cloneDNA(sourceDNA);
                 this.modifyDNA(dna, this.variance);
                 this.currentPopulation[i] = this.instantiate(dna, i);
@@ -140,10 +142,7 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
             var closest;
             var closestDist = 150;
             for (var i = 0; i < this.currentPopulation.length; i++) {
-                //var current = this.currentPopulation[i];
-				//Replace with:
-				var current = this.currentPopulation[i][0];
-				
+                var current = this.currentPopulation[i];
                 var d = current.getDistanceTo(p);
                 if (d < closestDist) {
                     closestDist = d;
