@@ -70,13 +70,15 @@ define(["common", "graph/graph"], function(common, Graph) {
             // As a child, offset the child index
             var skew = Math.pow(this.dna[ANGLE_SKEW] - .5, 3);
             var spread = (1.5 * this.dna[BUSHINESS]);
+			
             this.baseAngle = this.parent.angle + spread * (this.childPct - .5) + skew;
 
             this.baseAngle += this.dna[WIGGLE] * .1 * Math.sin(this.depth) * this.depth;
 
             // Set the position relative to the parent
             var mult = 15 - 12 * this.dna[BUSHINESS];
-            this.branchLength = .7 * mult * this.parent.radius;
+            //var mult = 15 - 12 * 2;
+			this.branchLength = .7 * mult * this.parent.radius;
 
             // Add a variance in length
             this.branchLength *= (1 + 1 * this.dna[VARIATION] * (Math.random() - .5));
