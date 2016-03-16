@@ -1,5 +1,5 @@
 /**
- * @author Gavin, Alex, and Blake
+ * @author Gavin, Alex, Blake, Kyle
  */
 
 define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee) {
@@ -11,13 +11,13 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
     }
 
     var BeeEvolution = Evolution.extend({
-        init : function() {
+        init : function(tree) {
             this.offset = 0;
             this.last = 0;
             this.populationSize = 7;
             this.plantSpacing = 40;
             this.grass = [];
-
+			this.treeArray=tree.currentPopulation;
             this.beeLine = 200;
 
             // make grass
@@ -37,9 +37,8 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
 
             //var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), this.beeLine + Math.random() * 20);
 
-			var beePos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.beeLine + Math.random() * 20)-300);
-            var bee = new Bee(dna, beePos);
-
+			var pos = new Vector(-300 + (app.dimensions.x - 80) * (index / this.populationSize), (this.beeLine + Math.random() * 20)-300);
+			var bee = new Bee(dna, pos,this.treeArray);
             return bee;
         },
 

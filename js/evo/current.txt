@@ -1,0 +1,6 @@
+After selecting plant
+
+in spawnFromSelected
+Pass in plant to fitness functions
+determine which bee is most fit
+pass in bee to crossover function to mix dna
