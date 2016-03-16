@@ -218,11 +218,9 @@ define(["common", "graph/graph", "../trees/treeEvo"], function(common, Graph, tr
 		moveBee : function(){
 			//check if we're at the destinaiton
 			if(Math.sqrt(Math.pow(this.destX-this.root.x, 2) + Math.pow(this.destY-this.root.y, 2))<4){
-				console.log(this.treeRefs);
 				//assign new destination
 				this.destX = Math.floor(Math.random()*800-400);
 				this.destY = Math.floor(Math.random()*600-300);
-				console.log("x="+this.destX+" y="+this.destY);
 				//this.rotation = Math.atan2(((this.root.y - this.destY)+90), ((this.root.x - this.destX)+90));
 				this.rotation = Math.atan2((this.root.y - this.destY), (this.root.x - this.destX));
 				//is.rotation *= (180/Math.PI);

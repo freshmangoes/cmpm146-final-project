@@ -111,7 +111,6 @@ define(["processing", "common", "./trees/treeEvo", "./boids/boidEvo", "./customE
                 //or $(this).offset(); if you really just want the current element's offset
                 var relX = e.pageX - parentOffset.left - app.dimensions.x / 2;
                 var relY = e.pageY - parentOffset.top - app.dimensions.y / 2;
-                console.log(relX + " " + relY);
 
                 app.evolution1.selectAt(new Vector(relX, relY), app.evolution2);
             });

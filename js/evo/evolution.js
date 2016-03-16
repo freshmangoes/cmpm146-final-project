@@ -105,16 +105,28 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
             }
         },
 
+		findBestBee : function(treeDNA, beeArray){
+			//compare the treeDNA to the dna of each bee in the array.
+			//return the bee that is the most similar to the given tree
+			return beeArray[0];
+		},
+		
         spawnFromSelected : function(beeRef) {
-            var sourceDNA = this.selected.dna;
+			var bestBee = this.findBestBee(this.selected.dna,beeRef.currentPopulation);
+            var sourceTreeDNA = this.selected.dna;
+			var sourceBeeDNA = bestBee.dna;
             this.currentPopulation = [];
             for (var i = 0; i < this.populationSize; i++) {
-                var dna = this.cloneDNA(sourceDNA);
-                this.modifyDNA(dna, this.variance);
-                this.currentPopulation[i] = this.instantiate(dna, i);
-				beeRef.currentPopulation[i] = beeRef.instantiate(dna, i);
+                var treeDNA = this.cloneDNA(sourceTreeDNA);
+				var beeDNA = this.cloneDNA(sourceBeeDNA);
+                this.modifyDNA(treeDNA, this.variance);
+				this.modifyDNA(beeDNA, this.variance);
+                this.currentPopulation[i] = this.instantiate(treeDNA, i);
+				//next line needs to use beeDNA
+				beeRef.currentPopulation[i] = beeRef.instantiate(beeDNA, i);
             }
         },
+		
         spawnFromSelf : function() {
 
             for (var i = 0; i < this.populationSize; i++) {

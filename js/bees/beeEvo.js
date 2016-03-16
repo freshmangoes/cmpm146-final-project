@@ -18,7 +18,6 @@ define(["common", "../evo/evolution", "./bee"], function(common, Evolution, Bee)
             this.plantSpacing = 40;
             this.grass = [];
 			this.treeArray=tree.currentPopulation;
-			console.log(tree);
             this.beeLine = 200;
 
             // make grass
