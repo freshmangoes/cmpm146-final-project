@@ -109,6 +109,7 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 			var leastDiff = 0;
 			var bodyDiff = 0;
 			var shrinkDiff = 0;
+			var colorDiff = 0;
 			var leastBeeIndex;
 			for(var i=0;i<beeArray.length;i++){
 				var currDiff=0;//stores cummulative difference between bee and tree
@@ -129,8 +130,14 @@ define(["common", "./evoStats/evoStats"], function(common, EvoStats) {
 				//shrink and body width
 				shrinkDiff += treeDNA[4]-beeArray[i].dna[9];
 				
+				//hue start and body color
+				colorDiff += treeDNA[7]-beeArray[i].dna[0];
+				
 				if (bodyDiff>shrinkDiff){
 					currDiff = bodyDiff;
+				}
+				else if (colorDiff > bodyDiff){
+					currDiff = colorDiff;
 				}
 				else{
 					currDiff = shrinkDiff;
